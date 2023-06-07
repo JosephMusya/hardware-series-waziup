@@ -1,3 +1,11 @@
+/*
+Waziup API documentation ->   https://api.waziup.io/docs/
+
+Waziup cloud dashboard   ->   https://dashboard.waziup.io
+
+Arduino WazidevLibrary   ->   https://github.com/Waziup/WaziDev/archive/V1.0.zip
+*/
+
 console.log("Hardware series workshop...")
 
 //API definition
@@ -5,10 +13,6 @@ const baseUrl = 'https://api.waziup.io/api/v2'
 
 //Username for the cloud
 const username = "muciajoe@gmail.com"
-
-//cloudurl
-//https://dashboard.waziup.io/
-
 
 //MQTT subscription
 function mqttSubscription(devices) {
@@ -68,6 +72,7 @@ async function getDevices() {
     return data
 }
 
+//Get devices and subscribe
 getDevices().then(devices=>{    
     mqttSubscription(devices)
 })
