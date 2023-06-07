@@ -1,0 +1,53 @@
+* {
+    margin: 0;
+    font-size: 1.2rem;
+    font-family: "Poppins", sans-serif;
+}
+
+:root {
+    --primary-color: #252536;
+    --secondary-color: #e2e2e2;
+}
+
+nav {
+    background-color: var(--primary-color);
+    padding: 0.8rem;
+}
+nav div{
+    display: flex;
+    color: white;
+}
+
+.heading ol {
+    list-style-type: none;
+}
+
+main {
+    padding: 0 0.8rem 0 0.8rem;
+}
+
+main div {
+    width: 40vw;
+    display: flex;
+    align-items: center;
+    background-color: var(--secondary-color);
+    padding: 1.5rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    border-radius: 5px;
+}
+img {
+    width: 2rem;
+    aspect-ratio: 1;
+    object-fit: cover;    
+}
+h1 {
+    color: rgb(54, 54, 54);
+}
+article {
+    color: rgb(54, 53, 53);
+}
+
+main h1 {
+    width: 60%;
+}
