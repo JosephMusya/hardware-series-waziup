@@ -1,6 +1,6 @@
 * {
     margin: 0;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-family: "Poppins", sans-serif;
 }
 
@@ -27,13 +27,12 @@ main {
 }
 
 main div {
-    width: 40vw;
+    width: 50vw;
     display: flex;
     align-items: center;
     background-color: var(--secondary-color);
     padding: 1.5rem;
-    margin-bottom: 0.5rem;
-    margin-top: 0.5rem;
+    margin: 0.5rem;
     border-radius: 5px;
 }
 img {
@@ -50,4 +49,23 @@ article {
 
 main h1 {
     width: 60%;
+}
+
+@media screen and (max-width: 780px){
+    main div {
+        width: 80vw;
+    }
+    
+}
+
+@media screen and (max-width: 577px){
+
+    * {
+        font-size: 1rem;
+    }
+
+    main div {
+        width: 80vw;
+    }
+    
 }
