@@ -4,6 +4,10 @@
     font-family: "Poppins", sans-serif;
 }
 
+link[rel="icon"] {
+    border-radius: 100%;
+}
+
 :root {
     --primary-color: #252536;
     --secondary-color: #e2e2e2;
