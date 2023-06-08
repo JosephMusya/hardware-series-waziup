@@ -3,19 +3,24 @@ Waziup API documentation ->   https://api.waziup.io/docs/
 
 Waziup cloud dashboard   ->   https://dashboard.waziup.io
 
-Arduino WazidevLibrary   ->   https://github.com/Waziup/WaziDev/archive/V1.0.zip
 */
 
 console.log("Hardware series workshop...")
 
+//Set your device ID
+const deviceID = "6482372168f3190729fdbcde"
+
 //API definition
 const baseUrl = 'https://api.waziup.io/api/v2'
 
-//Username for the cloud
+
+let temperature = "---";
+
+//Username for the cloud (email)
 const username = "muciajoe@gmail.com"
 
 //MQTT subscription
-function mqttSubscription(devices) {
+function mqttSubscription(device) {
     var reconnectTimeout = 2000;
     var mqtt = new window['Paho'].MQTT.Client("api.waziup.io", Number(443), "/websocket", "clientjs");
     var options = {
@@ -37,15 +42,9 @@ function mqttSubscription(devices) {
     //Device connected succesfully
     function onConnect() {
         console.log("MQTT Connected!")
-        return devices.map((device) => {
-            const deviceId = device.id
-            const baseUrl = "devices/" + deviceId
-            device.sensors.map(sensor => {
-                const sensorUrl = baseUrl + "/sensors/" + sensor.id
-                mqtt.subscribe(baseUrl + "/#")
-                console.log("Subscribed to sensor ->", sensor.name)
-            })
-        })
+        const baseUrl = "devices/" + deviceID
+        mqtt.subscribe(baseUrl+ "/#")
+        console.log("Subscribed to: ", device.name)
     }
 
     //Device failed to connect
@@ -57,22 +56,31 @@ function mqttSubscription(devices) {
     //Some updates occured on the device
     function onMessageArrived(msg) {
         const val = (JSON.parse(msg.payloadString).value)
-        console.log(val)                                   
+        document.getElementById("temperature").innerHTML = val + " &degC"                                  
+        console.log(JSON.parse(msg.payloadString))
     }
 }
 
 //Fetch available devices
-async function getDevices() {
+async function getDevice(id) {
+
     const res = await fetch(
-        'https://api.waziup.io/api/v2/devices?q=owner==' + username,
+        `https://api.waziup.io/api/v2/devices/${id}?q=owner==` + username,
     );
+
     const data = await res.json();
-    data.splice(0, 1);
+    const sensors = data.sensors
+    
+    //Set the current temperature value
+    sensors.map((sensor)=>{
+        temperature = sensor.value.value
+        document.getElementById("temperature").innerHTML = temperature + " &degC"              
+    })
 
     return data
 }
 
 //Get devices and subscribe
-getDevices().then(devices=>{    
-    mqttSubscription(devices)
+getDevice(deviceID).then(device=>{    
+    mqttSubscription(device)
 })
